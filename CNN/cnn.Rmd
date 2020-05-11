@@ -59,7 +59,7 @@ set.seed(1)
 for(i in 1:6){
   newfile = categories[i] %>%
     list.files(pattern = "*.jpg", all.files = T, full.names = T, no.. = T) %>%
-    sample(10)
+    sample(1000)
   
   files = files %>% append(newfile)
   catlength = append(catlength, length(newfile))
@@ -91,7 +91,7 @@ each = class_indicator %>%
   as.vector() %>%
   cumsum()
 
-each = c(1, each[1:5]+1)
+each = c(1, each[-6]+1)
 
 #add random process:
 randomimage = sample(0:min(table(class_indicator)), 1)
@@ -184,7 +184,7 @@ each_test = class_indicator_test %>%
   as.vector() %>%
   cumsum()
 
-each_test = c(1, each_test[1:5]+1)
+each_test = c(1, each_test[-6]+1)
 
 #add random process:
 randomimage = sample(0:min(table(class_indicator)), 1)

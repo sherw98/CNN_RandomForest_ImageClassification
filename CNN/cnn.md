@@ -49,7 +49,7 @@ set.seed(1)
 for(i in 1:6){
   newfile = categories[i] %>%
     list.files(pattern = "*.jpg", all.files = T, full.names = T, no.. = T) %>%
-    sample(10)
+    sample(1000)
   
   files = files %>% append(newfile)
   catlength = append(catlength, length(newfile))
@@ -72,8 +72,8 @@ table(class_indicator)
 
 ```
 ## class_indicator
-##  0  1  2  3  4  5 
-## 10 10 10 10 10 10
+##    0    1    2    3    4    5 
+## 1000 1000 1000 1000 1000 1000
 ```
 
 
@@ -89,7 +89,7 @@ each = class_indicator %>%
   as.vector() %>%
   cumsum()
 
-each = c(1, each[1:5]+1)
+each = c(1, each[-6]+1)
 
 #add random process:
 randomimage = sample(0:min(table(class_indicator)), 1)
@@ -143,7 +143,7 @@ str(trainx)
 ```
 
 ```
-##  num [1:60, 1:32, 1:32, 1:3] 0.784 0.384 0.369 0.475 1 ...
+##  num [1:6000, 1:32, 1:32, 1:3] 0.784 0.384 0.369 0.475 1 ...
 ```
 
 ```r
@@ -151,7 +151,7 @@ str(trainy)
 ```
 
 ```
-##  num [1:60, 1] 0 0 0 0 0 0 0 0 0 0 ...
+##  num [1:6000, 1] 0 0 0 0 0 0 0 0 0 0 ...
 ```
 
 ```r
@@ -160,8 +160,8 @@ str(trainall)
 
 ```
 ## List of 2
-##  $ : num [1:60, 1:32, 1:32, 1:3] 0.784 0.384 0.369 0.475 1 ...
-##  $ : num [1:60, 1] 0 0 0 0 0 0 0 0 0 0 ...
+##  $ : num [1:6000, 1:32, 1:32, 1:3] 0.784 0.384 0.369 0.475 1 ...
+##  $ : num [1:6000, 1] 0 0 0 0 0 0 0 0 0 0 ...
 ```
 
 ```r
@@ -222,7 +222,7 @@ each_test = class_indicator_test %>%
   as.vector() %>%
   cumsum()
 
-each_test = c(1, each_test[1:5]+1)
+each_test = c(1, each_test[-6]+1)
 
 #add random process:
 randomimage = sample(0:min(table(class_indicator)), 1)
@@ -258,7 +258,7 @@ summary(image_list_test[[rtest]])
 
 ```
 ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-##  0.0000  0.1206  0.2627  0.3902  0.6314  1.0000
+##  0.0000  0.1686  0.4510  0.4264  0.6471  1.0000
 ```
 
 
@@ -430,10 +430,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.319494
+## [1] 0.6622986
 ## 
 ## $accuracy
-## [1] 0.4864684
+## [1] 0.769128
 ```
 
 building prediction:
@@ -448,12 +448,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0 113  22  28  41  54  70
-##         1  31 316   4  10  26  63
-##         2  37   2 242  46  85  29
-##         3  45   7  50 257  61  34
-##         4  63   9 202 142 243  20
-##         5 148 117  23  27  41 285
+##         0 325  17  14   9  28  69
+##         1  18 405   2   3   4  17
+##         2  10   1 408  59  55   5
+##         3  19   3  64 396  43   3
+##         4  20   6  50  54 377  16
+##         5  45  41  11   2   3 391
 ```
 
 
@@ -656,10 +656,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.731306
+## [1] 0.6752864
 ## 
 ## $accuracy
-## [1] 0.3150685
+## [1] 0.7621116
 ```
 
 building prediction:
@@ -674,12 +674,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0  39  25  14  25  13  25
-##         1   0   9   0   0   0   2
-##         2   0   1   0   0   1   1
-##         3   7   3  28 136  10   6
-##         4 211  58 478 307 419 127
-##         5 180 377  29  55  67 340
+##         0 286   6   4   4   7  62
+##         1  18 421   2   1   4  20
+##         2  19   3 430  74  80  32
+##         3  35   9  64 404  35  12
+##         4  46   2  43  39 381  16
+##         5  33  32   6   1   3 359
 ```
 
 Accuracy Plot
