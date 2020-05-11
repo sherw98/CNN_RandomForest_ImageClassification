@@ -37,7 +37,7 @@ library(tidyverse)
         1. [Model Building/Compiling](##ModelBuilding/Compiling)
         2. [Model Fitting](##ModelFitting)
         3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##ErrorAnalysis)
+        4. [Error Analysis](##erroranalysis)
     
         
 
@@ -460,7 +460,7 @@ plot(history) +
 ```
 
 
-## Error Analysis <a name="ErrorAnalysis"></a>
+## Error Analysis <a name="erroranalysis"></a>
 
 ```{r}
 badclass_index = NULL
