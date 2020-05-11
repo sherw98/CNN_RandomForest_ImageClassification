@@ -26,7 +26,7 @@ output:
         1. [Model Building/Compiling](##ModelBuilding/Compiling)
         2. [Model Fitting](##ModelFitting)
         3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##erroranalysis)
+        4. [Error Analysis](#erroranalysis)
     
         
 
@@ -430,10 +430,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.365582
+## [1] 1.339636
 ## 
 ## $accuracy
-## [1] 0.4557301
+## [1] 0.4837955
 ```
 
 building prediction:
@@ -448,12 +448,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0  78  11  26  43  38  39
-##         1  70 376   8  21  27 129
-##         2  26   1 190  55  89  12
-##         3  10   3  30 162  16  11
-##         4 102  11 267 203 289  41
-##         5 151  71  28  39  51 269
+##         0 262  90  77 122 135 215
+##         1  16 289   2   0  12  32
+##         2  55  15 375  95 167  58
+##         3  25   4  31 211  33  11
+##         4  26   1  58  84 132   6
+##         5  53  74   6  11  31 179
 ```
 
 
@@ -656,10 +656,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.545032
+## [1] 1.440034
 ## 
 ## $accuracy
-## [1] 0.41998
+## [1] 0.4263281
 ```
 
 building prediction:
@@ -674,12 +674,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0  21   4   8   5  15   7
-##         1 235 442  22  80  95 319
-##         2  18   4 228  32  89  14
-##         3  62   7  60 266  76  37
-##         4  32   1 188 122 183   7
-##         5  69  15  43  18  52 117
+##         0  24   3   9   7  18  35
+##         1 128 416  16  39  60 194
+##         2  15   1 207  40  85   9
+##         3  94   8  49 229  51  51
+##         4  75   5 245 173 225  37
+##         5 101  40  23  35  71 175
 ```
 
 Accuracy Plot
@@ -698,7 +698,7 @@ plot(history) +
 ![](cnn_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 
-# Error Analysis <a name="erroranalysis"></a>
+## Error Analysis <a name="erroranalysis"></a>
 
 
 ```r
