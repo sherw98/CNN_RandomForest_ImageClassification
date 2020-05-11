@@ -18,9 +18,9 @@ library(arm)
 library(tidyverse)
 ```
 
-This respository hosts the project of image classification. The goal of the project is to classify natural scenes image data, which is made available by Intel for an image classification challenge online. The data are obtained from the Intel Image Classification dataset, which was originally an online image classification challenge initiated by Intel. The data are available on Kaggle (https://www.kaggle.com/puneet6060/intel-image-classification).
+This repository hosts the project of image classification. The goal of the project is to classify natural scenes image data, which is made available by Intel for an image classification challenge online. The data are obtained from the Intel Image Classification dataset, which was originally an online image classification challenge initiated by Intel. The data are available on Kaggle (https://www.kaggle.com/puneet6060/intel-image-classification).
 
-Here are some examples for the photos randomly selected from each of the category: 
+Below are some examples for the photos randomly selected from each of the category. Data came in pre-split to train, test, and predict sets. Each image comes in the size of 150*150. There are over 2000 images in each of the categories for the train set, and over 400 images in each of the categories for the test set. 
 
 ```{r}
 setwd("~/Data Science/Project/seg_train")
@@ -57,20 +57,24 @@ each = class_indicator %>%
 each = c(1, each[-6]+1)
 
 #add random process:
-randomimage = sample(0:min(table(class_indicator)), 1)
-each = each + randomimage
+randomimage = sample(0:min(table(class_indicator)), 4)
 
-par(mfrow=c(2,3))
-for(i in 1:6){
-  files[each[i]] %>%
+result = NULL
+for(i in 1:4){
+  eacha = each + randomimage[i]
+  result = c(result, eacha)
+}
+
+par(mfrow=c(4,6))
+for(i in 1:24){
+  files[result[i]] %>%
     readImage() %>%
-    plotArrayAsImage(main = categories[i])
+    plotArrayAsImage(main = rep(categories, 4)[i])
 }
 ```
 
 
-
 The original project was for my machine learning class final project. That project was completed with two other group members, and images were classified using machine learning techniques, including kNN with cross validation, random forest with grid search, and support vector machine. Due to the nature of machine learning methods and limited RAM memory, the highest accuracy we can get was around 50 percent. The details, code, output, and report of this project is under the file `MachineLearning`. 
 
-To improve the result, I individually started the second part of this project, which is to classify these same images using Convolutional Neural Network. In this project, codes for data pre-processing are  modified and improved from the previous project. Currently, the accuracy is about 75 percent using only 1000 images from each of the train set (due to RAM memory limit again), without fine tuning. In near future, this project will be continously updated to achieve better result. The details of the project can be found under the file `CNN`. 
+To improve the result, I individually started the second part of this project, which is to classify these same images using Convolutional Neural Network. In this project, codes for data pre-processing are  modified and improved from the previous project. Currently, the accuracy is about 75 percent using only 1000 images from each of the train set (due to RAM memory limit again), without fine tuning. In near future, this project will be continuously updated to achieve better result. The details of the project can be found under the file `CNN`. 
 
