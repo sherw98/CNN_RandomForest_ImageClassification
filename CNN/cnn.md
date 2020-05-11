@@ -32,7 +32,7 @@ output:
 
 ## Data Pre-Processing <a name="pp"></a>
 
-### Train <a name="train"></a>
+### Train Set <a name="train"></a>
 
 Read in all 6 training files, and combine them into a single list. Use `catlength` to count the number of images in each of the 6 categories. 
 
@@ -169,7 +169,7 @@ remove(files, image_list)
 ```
 
 
-### Test <a name="test"></a>
+### Test Set <a name="test"></a>
 
 Repeat the same procedures for the testing set. Code explanation same as above. 
 
@@ -430,10 +430,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 0.6622986
+## [1] 0.82774
 ## 
 ## $accuracy
-## [1] 0.769128
+## [1] 0.7106582
 ```
 
 building prediction:
@@ -448,12 +448,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0 325  17  14   9  28  69
-##         1  18 405   2   3   4  17
-##         2  10   1 408  59  55   5
-##         3  19   3  64 396  43   3
-##         4  20   6  50  54 377  16
-##         5  45  41  11   2   3 391
+##         0 236   5  13  19  16  34
+##         1  20 413   4   2   6  10
+##         2   2   1 260  32   8   1
+##         3  10   2  56 314   5   3
+##         4  51   3 195 144 463  12
+##         5 118  49  21  12  12 441
 ```
 
 
@@ -519,7 +519,7 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 ### Final Attempt <a name="fa1"></a>
 
-After some trails and errors 
+After some trials and errors 
 
 #### Model Building/Compiling <a name="bc1"></a>
 
@@ -656,10 +656,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 0.6752864
+## [1] 0.6776982
 ## 
 ## $accuracy
-## [1] 0.7621116
+## [1] 0.7554293
 ```
 
 building prediction:
@@ -674,12 +674,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0 286   6   4   4   7  62
-##         1  18 421   2   1   4  20
-##         2  19   3 430  74  80  32
-##         3  35   9  64 404  35  12
-##         4  46   2  43  39 381  16
-##         5  33  32   6   1   3 359
+##         0 202   6   6   5   5  12
+##         1  30 440   4   2   3  19
+##         2  14   2 458  96 105   6
+##         3  12   2  44 370  37   2
+##         4  26   1  22  38 342  13
+##         5 153  22  15  12  18 449
 ```
 
 Accuracy Plot

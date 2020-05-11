@@ -43,7 +43,7 @@ library(tidyverse)
 
 ## Data Pre-Processing <a name="pp"></a>
 
-### Train <a name="train"></a>
+### Train Set <a name="train"></a>
 
 Read in all 6 training files, and combine them into a single list. Use `catlength` to count the number of images in each of the 6 categories. 
 
@@ -140,7 +140,7 @@ remove(files, image_list)
 ```
 
 
-### Test <a name="test"></a>
+### Test Set <a name="test"></a>
 
 Repeat the same procedures for the testing set. Code explanation same as above. 
 
@@ -370,7 +370,7 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 ### Final Attempt <a name="fa1"></a>
 
-After some trails and errors 
+After some trials and errors 
 
 #### Model Building/Compiling <a name="bc1"></a>
 
