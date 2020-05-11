@@ -28,20 +28,20 @@ library(tidyverse)
     1. [Train Set](##Train)
     2. [Test Set](##Test)
 2. [CNN](##CNN)
-    1. [First Attempt](##First Attempt)
-        1. [Model Building/Compiling](##Model Building/Compiling)
-        2. [Model Fitting](##Model Fitting)
+    1. [First Attempt](##FirstAttempt)
+        1. [Model Building/Compiling](##ModelBuilding/Compiling)
+        2. [Model Fitting](##ModelFitting)
         3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##Error Analysis)
-    2. [First Attempt](##First Attempt)
-        1. [Model Building/Compiling](##Model Building/Compiling)
-        2. [Model Fitting](##Model Fitting)
+        4. [Error Analysis](##ErrorAnalysis)
+    2. [First Attempt](##SecondAttempt)
+        1. [Model Building/Compiling](##ModelBuilding/Compiling)
+        2. [Model Fitting](##ModelFitting)
         3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##Error Analysis)
+        4. [Error Analysis](##ErrorAnalysis)
     
         
 
-## Pre-Processing 
+## Pre-Processing <a name="Pre-Processing"></a>
 
 ## Train
 
@@ -460,7 +460,7 @@ plot(history) +
 ```
 
 
-## Error Analysis
+## Error Analysis <a name="ErrorAnalysis"></a>
 
 ```{r}
 badclass_index = NULL

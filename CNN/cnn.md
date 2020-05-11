@@ -17,20 +17,20 @@ output:
     1. [Train Set](##Train)
     2. [Test Set](##Test)
 2. [CNN](##CNN)
-    1. [First Attempt](##First Attempt)
-        1. [Model Building/Compiling](##Model Building/Compiling)
-        2. [Model Fitting](##Model Fitting)
+    1. [First Attempt](##FirstAttempt)
+        1. [Model Building/Compiling](##ModelBuilding/Compiling)
+        2. [Model Fitting](##ModelFitting)
         3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##Error Analysis)
-    2. [First Attempt](##First Attempt)
-        1. [Model Building/Compiling](##Model Building/Compiling)
-        2. [Model Fitting](##Model Fitting)
+        4. [Error Analysis](##ErrorAnalysis)
+    2. [First Attempt](##SecondAttempt)
+        1. [Model Building/Compiling](##ModelBuilding/Compiling)
+        2. [Model Fitting](##ModelFitting)
         3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##Error Analysis)
+        4. [Error Analysis](##ErrorAnalysis)
     
         
 
-## Pre-Processing 
+## Pre-Processing <a name="Pre-Processing"></a>
 
 ## Train
 
@@ -430,10 +430,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.320539
+## [1] 1.359931
 ## 
 ## $accuracy
-## [1] 0.4700969
+## [1] 0.4450384
 ```
 
 building prediction:
@@ -448,12 +448,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0 193  28  58 119  93 126
-##         1  73 408  11  12  20 155
-##         2  28   6 211  42  79  30
-##         3   6   2  27 159  12   5
-##         4  78   9 231 183 282  31
-##         5  59  20  11   8  24 154
+##         0 114  18  25  72  36  66
+##         1  71 364   7  24  28 138
+##         2  25   1 182  42  62  16
+##         3   3   2  14 102   6   4
+##         4 131  15 303 266 351  58
+##         5  93  73  18  17  27 219
 ```
 
 
@@ -656,10 +656,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.749768
+## [1] 1.446658
 ## 
 ## $accuracy
-## [1] 0.3585032
+## [1] 0.4129636
 ```
 
 building prediction:
@@ -674,12 +674,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0   1   0   0   0   0   0
-##         1   2  67   0   0   1   3
-##         2  66  65 163  50  86  99
-##         3  33  26  42 227  51  27
-##         4  97   8 248 153 272  29
-##         5 238 307  96  93 100 343
+##         0  86  13  26  50  61  46
+##         1 210 434  27  43  62 304
+##         2  13  10 166  26  56  23
+##         3  54   5  88 248  85  46
+##         4  47   2 237 138 233  13
+##         5  27   9   5  18  13  69
 ```
 
 Accuracy Plot
@@ -698,7 +698,7 @@ plot(history) +
 ![](cnn_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 
-## Error Analysis
+## Error Analysis <a name="ErrorAnalysis"></a>
 
 
 ```r
