@@ -2,11 +2,7 @@
 title: "CNN"
 author: "Yixuan (Sherry) Wu"
 date: "5/10/2020"
-output: 
-  html_document:
-    keep_md: true
-    toc: true
-    toc_float: true
+output: rmarkdown::github_document
 
 ---
 
