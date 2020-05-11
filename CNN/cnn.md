@@ -10,18 +10,7 @@ output:
 
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(keras)
-library(tensorflow)
-library(gtools)
-library(OpenImageR)
-library(countcolors)
-library(rlist)
-library(beepr)
-library(arm)
-library(tidyverse)
-```
+
 
 # Table of Contents
 1. [Data Pre-Processing](#Data Pre-Processing)
@@ -33,7 +22,8 @@ library(tidyverse)
 
 Read in all 6 training files, and combine them into a single list. Use `catlength` to count the number of images in each of the 6 categories. 
 
-```{r}
+
+```r
 setwd("~/Data Science/Project/seg_train")
 
 categories = c("buildings", "forest", "glacier", "mountain", "sea", "street")
@@ -56,7 +46,8 @@ files = files %>% unlist()
 
 Now, create a list of vectors that accounts for the categories each image belongs to
 
-```{r}
+
+```r
 class_indicator = NULL
 for(i in 1:6){
   class_ind = c(rep(i-1, catlength[i]))
@@ -65,12 +56,19 @@ for(i in 1:6){
 table(class_indicator)
 ```
 
+```
+## class_indicator
+##  0  1  2  3  4  5 
+## 10 10 10 10 10 10
+```
+
 
 Plot one image from each of the 6 categories
 
 The vector `each` is set so that we know where the next category begin. The `table(class_list)` function provides how many images are in each category, and since we read in the files sequentially, we can use `cumsum()` to find the cumulative sum, meaning the start of the new category. We need to add 1 to the end because the original cumulative sums only represent the location of the last image in a category. I set this vector only to avoid redoing `plotArrayAsImage` six times. 
 
-```{r}
+
+```r
 setwd("~/Data Science/Project/seg_train")
 each = class_indicator %>%
   table() %>%
@@ -91,10 +89,13 @@ for(i in 1:6){
 }
 ```
 
+![](cnn_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
+
 
 Then use the `readImage` function from package `OpenImageR` to load the actual images. And resize the images to 32x32x3 using `resizeImage` and `array_reshape`
 
-```{r}
+
+```r
 setwd("~/Data Science/Project/seg_train")
 image_list = list()
 for(i in 1:length(files)){
@@ -107,9 +108,15 @@ rtrain = runif(1, 1:length(image_list))
 summary(image_list[[rtrain]])
 ```
 
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.1912  0.5412  0.5094  0.8284  1.0000
+```
+
 Reshape the data to be used for later CNN: instead of lists of thousands, changed it to one list with 4 dimensions
 
-```{r}
+
+```r
 trainx = image_list %>% 
   array_reshape(c(length(image_list), 32, 32, 3))
 
@@ -119,9 +126,31 @@ trainy = class_indicator %>%
 trainall = list(trainx, trainy)
 
 str(trainx)
-str(trainy)
-str(trainall)
+```
 
+```
+##  num [1:60, 1:32, 1:32, 1:3] 0.784 0.384 0.369 0.475 1 ...
+```
+
+```r
+str(trainy)
+```
+
+```
+##  num [1:60, 1] 0 0 0 0 0 0 0 0 0 0 ...
+```
+
+```r
+str(trainall)
+```
+
+```
+## List of 2
+##  $ : num [1:60, 1:32, 1:32, 1:3] 0.784 0.384 0.369 0.475 1 ...
+##  $ : num [1:60, 1] 0 0 0 0 0 0 0 0 0 0 ...
+```
+
+```r
 remove(files, image_list)
 ```
 
@@ -132,7 +161,8 @@ Repeat the same procedures for the testing set. Code explanation same as above.
 
 Read in
 
-```{r}
+
+```r
 setwd("~/Data Science/Project/seg_test")
 
 files_test = list()
@@ -151,7 +181,8 @@ files_test = unlist(files_test)
 
 Set the class/category 
 
-```{r}
+
+```r
 class_indicator_test = NULL
 for(i in 1:6){
   class_ind_test = c(rep(i-1, catlength_test[i]))
@@ -160,9 +191,16 @@ for(i in 1:6){
 table(class_indicator_test)
 ```
 
+```
+## class_indicator_test
+##   0   1   2   3   4   5 
+## 437 473 549 523 510 501
+```
+
 Plot
 
-```{r}
+
+```r
 setwd("~/Data Science/Project/seg_test")
 
 each_test = class_indicator_test %>%
@@ -184,10 +222,13 @@ for(i in 1:6){
 }
 ```
 
+![](cnn_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+
 
 Load the data
 
-```{r}
+
+```r
 setwd("~/Data Science/Project/seg_test")
 
 image_list_test = list()
@@ -201,8 +242,14 @@ rtest = sample(1:length(image_list_test),1)
 summary(image_list_test[[rtest]])
 ```
 
+```
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##  0.0000  0.1206  0.2627  0.3902  0.6314  1.0000
+```
 
-```{r}
+
+
+```r
 testx = image_list_test %>% 
   array_reshape(c(length(image_list_test), 32, 32, 3))
 
@@ -212,9 +259,31 @@ testy = class_indicator_test %>%
 testall = list(testx, testy)
 
 str(testx)
-str(testy)
-str(testall)
+```
 
+```
+##  num [1:2993, 1:32, 1:32, 1:3] 0.353 0.431 0.89 0.569 0.157 ...
+```
+
+```r
+str(testy)
+```
+
+```
+##  num [1:2993, 1] 0 0 0 0 0 0 0 0 0 0 ...
+```
+
+```r
+str(testall)
+```
+
+```
+## List of 2
+##  $ : num [1:2993, 1:32, 1:32, 1:3] 0.353 0.431 0.89 0.569 0.157 ...
+##  $ : num [1:2993, 1] 0 0 0 0 0 0 0 0 0 0 ...
+```
+
+```r
 remove(image_list_test)
 ```
 
@@ -232,7 +301,8 @@ Maxpooling: dim reduction + noise suppressant
 
 Dropout: help with overfitting
 
-```{r}
+
+```r
 model = keras_model_sequential()
 
 model %>%
@@ -250,11 +320,33 @@ model %>%
 summary(model)
 ```
 
+```
+## Model: "sequential"
+## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #     
+## ===========================================================================
+## conv2d (Conv2D)                  (None, 30, 30, 32)            896         
+## ___________________________________________________________________________
+## max_pooling2d (MaxPooling2D)     (None, 15, 15, 32)            0           
+## ___________________________________________________________________________
+## conv2d_1 (Conv2D)                (None, 13, 13, 64)            18496       
+## ___________________________________________________________________________
+## max_pooling2d_1 (MaxPooling2D)   (None, 6, 6, 64)              0           
+## ___________________________________________________________________________
+## dropout (Dropout)                (None, 6, 6, 64)              0           
+## ===========================================================================
+## Total params: 19,392
+## Trainable params: 19,392
+## Non-trainable params: 0
+## ___________________________________________________________________________
+```
+
 flatten: transform 2d array into long 1d array
 
 dense: output = activation(dot(input, kernel) + bias)
 
-```{r}
+
+```r
 model %>% 
   layer_flatten() %>%
   layer_dense(units = 128, activation = "relu") %>%
@@ -262,21 +354,49 @@ model %>%
 summary(model)
 ```
 
+```
+## Model: "sequential"
+## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #     
+## ===========================================================================
+## conv2d (Conv2D)                  (None, 30, 30, 32)            896         
+## ___________________________________________________________________________
+## max_pooling2d (MaxPooling2D)     (None, 15, 15, 32)            0           
+## ___________________________________________________________________________
+## conv2d_1 (Conv2D)                (None, 13, 13, 64)            18496       
+## ___________________________________________________________________________
+## max_pooling2d_1 (MaxPooling2D)   (None, 6, 6, 64)              0           
+## ___________________________________________________________________________
+## dropout (Dropout)                (None, 6, 6, 64)              0           
+## ___________________________________________________________________________
+## flatten (Flatten)                (None, 2304)                  0           
+## ___________________________________________________________________________
+## dense (Dense)                    (None, 128)                   295040      
+## ___________________________________________________________________________
+## dense_1 (Dense)                  (None, 6)                     774         
+## ===========================================================================
+## Total params: 315,206
+## Trainable params: 315,206
+## Non-trainable params: 0
+## ___________________________________________________________________________
+```
+
 ### Compiling
 
-```{r}
+
+```r
 model %>%
   compile(optimizer = "adam",
           loss = "sparse_categorical_crossentropy",
           metrics = "accuracy")
-
 ```
 
 ### Model Fitting
 
 blue line: based on training data; yellow line: validation data
 
-```{r}
+
+```r
 history <- model %>% 
   fit(
     x = trainx, y = trainy,
@@ -290,19 +410,41 @@ beep()
 
 ### Evaluation
 
-```{r}
+
+```r
 model %>% evaluate(testx, testy, verbose = 0)
+```
+
+```
+## $loss
+## [1] 1.350344
+## 
+## $accuracy
+## [1] 0.4657534
 ```
 
 building prediction:
 
-```{r}
+
+```r
 pred_att1 = model %>% predict_classes(testx)
 tb_att1 = table(Predicted = pred_att1, Actual = testy)
 tb_att1
 ```
 
-```{r}
+```
+##          Actual
+## Predicted   0   1   2   3   4   5
+##         0  46   8   6  13  16  16
+##         1  62 373   4   6   4 121
+##         2  82  23 231  52 110  73
+##         3 102  18 116 336 121  88
+##         4  55   1 178 106 229  24
+##         5  90  50  14  10  30 179
+```
+
+
+```r
 plot(history) + 
   scale_color_manual(values = c("#428ff4", "#39bf7f")) +
   scale_fill_manual(values = c("#428ff4", "#15b367")) +
@@ -311,12 +453,15 @@ plot(history) +
         strip.background = element_rect(color = "white"))
 ```
 
+![](cnn_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+
 
 ### Error Analysis
 
 Mislabelled images
 
-```{r}
+
+```r
 badclass_index = NULL
 
 for(i in 1:length(pred_att1)){
@@ -335,12 +480,14 @@ par(mfrow=c(4,5))
       readImage() %>%
       plotArrayAsImage(main = categories[pred_att1[badindex[i]]+1])
   }
-  
 ```
+
+![](cnn_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 Heatmap
 
-```{r}
+
+```r
 tabheat = tb_att1 %>%
   as.data.frame() 
 ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
@@ -353,6 +500,8 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
   theme(axis.text.x = element_text(angle = 90))
 ```
 
+![](cnn_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
+
 
 
 ## Final Attempt
@@ -361,7 +510,8 @@ After some trails and errors
 
 ### Model Fitting/Compiling
 
-```{r}
+
+```r
 model = keras_model_sequential()
 
 model %>%
@@ -386,7 +536,35 @@ model %>%
 summary(model)
 ```
 
-```{r}
+```
+## Model: "sequential_1"
+## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #     
+## ===========================================================================
+## conv2d_2 (Conv2D)                (None, 30, 30, 32)            896         
+## ___________________________________________________________________________
+## conv2d_3 (Conv2D)                (None, 28, 28, 32)            9248        
+## ___________________________________________________________________________
+## max_pooling2d_2 (MaxPooling2D)   (None, 14, 14, 32)            0           
+## ___________________________________________________________________________
+## dropout_1 (Dropout)              (None, 14, 14, 32)            0           
+## ___________________________________________________________________________
+## conv2d_4 (Conv2D)                (None, 12, 12, 64)            18496       
+## ___________________________________________________________________________
+## conv2d_5 (Conv2D)                (None, 10, 10, 64)            36928       
+## ___________________________________________________________________________
+## max_pooling2d_3 (MaxPooling2D)   (None, 5, 5, 64)              0           
+## ___________________________________________________________________________
+## dropout_2 (Dropout)              (None, 5, 5, 64)              0           
+## ===========================================================================
+## Total params: 65,568
+## Trainable params: 65,568
+## Non-trainable params: 0
+## ___________________________________________________________________________
+```
+
+
+```r
 model %>% 
   layer_flatten() %>%
   layer_dense(units = 256, activation = "relu") %>%
@@ -395,21 +573,57 @@ model %>%
 summary(model)
 ```
 
+```
+## Model: "sequential_1"
+## ___________________________________________________________________________
+## Layer (type)                     Output Shape                  Param #     
+## ===========================================================================
+## conv2d_2 (Conv2D)                (None, 30, 30, 32)            896         
+## ___________________________________________________________________________
+## conv2d_3 (Conv2D)                (None, 28, 28, 32)            9248        
+## ___________________________________________________________________________
+## max_pooling2d_2 (MaxPooling2D)   (None, 14, 14, 32)            0           
+## ___________________________________________________________________________
+## dropout_1 (Dropout)              (None, 14, 14, 32)            0           
+## ___________________________________________________________________________
+## conv2d_4 (Conv2D)                (None, 12, 12, 64)            18496       
+## ___________________________________________________________________________
+## conv2d_5 (Conv2D)                (None, 10, 10, 64)            36928       
+## ___________________________________________________________________________
+## max_pooling2d_3 (MaxPooling2D)   (None, 5, 5, 64)              0           
+## ___________________________________________________________________________
+## dropout_2 (Dropout)              (None, 5, 5, 64)              0           
+## ___________________________________________________________________________
+## flatten_1 (Flatten)              (None, 1600)                  0           
+## ___________________________________________________________________________
+## dense_2 (Dense)                  (None, 256)                   409856      
+## ___________________________________________________________________________
+## dropout_3 (Dropout)              (None, 256)                   0           
+## ___________________________________________________________________________
+## dense_3 (Dense)                  (None, 6)                     1542        
+## ===========================================================================
+## Total params: 476,966
+## Trainable params: 476,966
+## Non-trainable params: 0
+## ___________________________________________________________________________
+```
+
 ### Compiling
 
-```{r}
+
+```r
 model %>%
   compile(optimizer = "adam",
           loss = "sparse_categorical_crossentropy",
           metrics = "accuracy")
-
 ```
 
 ### Model Fitting
 
 blue line: based on training data; yellow line: validation data
 
-```{r}
+
+```r
 history <- model %>% 
   fit(
     x = trainx, y = trainy,
@@ -422,22 +636,44 @@ history <- model %>%
 
 ### Evaluation
 
-```{r}
+
+```r
 model %>% evaluate(testx, testy, verbose = 0)
+```
+
+```
+## $loss
+## [1] 1.589296
+## 
+## $accuracy
+## [1] 0.4273304
 ```
 
 building prediction:
 
-```{r}
+
+```r
 pred_att1 = model %>% predict_classes(testx)
 tb_att1 = table(Predicted = pred_att1, Actual = testy)
 tb_att1
 ```
 
+```
+##          Actual
+## Predicted   0   1   2   3   4   5
+##         0   2   1   1   1   2   1
+##         1 134 387  14  49  49 192
+##         2  25   4 218  39  94  13
+##         3  11   3  41 163  25   9
+##         4  56   5 197 185 246  23
+##         5 209  73  78  86  94 263
+```
+
 Accuracy Plot
 
 
-```{r}
+
+```r
 plot(history) + 
   scale_color_manual(values = c("#428ff4", "#39bf7f")) +
   scale_fill_manual(values = c("#428ff4", "#15b367")) +
@@ -446,10 +682,13 @@ plot(history) +
         strip.background = element_rect(color = "white"))
 ```
 
+![](cnn_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
+
 
 ### Error Analysis
 
-```{r}
+
+```r
 badclass_index = NULL
 
 for(i in 1:length(pred_att1)){
@@ -468,12 +707,14 @@ par(mfrow=c(4,5))
       readImage() %>%
       plotArrayAsImage(main = categories[pred_att1[badindex[i]]+1])
   }
-  
 ```
+
+![](cnn_files/figure-html/unnamed-chunk-27-1.png)<!-- -->
 
 Heatmap
 
-```{r}
+
+```r
 tabheat = tb_att1 %>%
   as.data.frame() 
 ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
@@ -485,4 +726,6 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
   geom_text(aes(Predicted, Actual, label = Freq), color = "#ff8c00", size = 4) +
   theme(axis.text.x = element_text(angle = 90))
 ```
+
+![](cnn_files/figure-html/unnamed-chunk-28-1.png)<!-- -->
 
