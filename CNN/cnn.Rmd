@@ -24,26 +24,26 @@ library(tidyverse)
 ```
 
 # Table of Contents
-1. [Pre-Processing](##Pre-Processing)
-    1. [Train Set](##Train)
-    2. [Test Set](##Test)
-2. [CNN](##CNN)
-    1. [First Attempt](##FirstAttempt)
-        1. [Model Building/Compiling](##ModelBuilding/Compiling)
-        2. [Model Fitting](##ModelFitting)
-        3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##ErrorAnalysis)
-    2. [First Attempt](##SecondAttempt)
-        1. [Model Building/Compiling](##ModelBuilding/Compiling)
-        2. [Model Fitting](##ModelFitting)
-        3. [Evaluation](##Evaluation)
-        4. [Error Analysis](#erroranalysis)
+1. [Data Pre-Processing](#pp)
+    1. [Train Set](#train)
+    2. [Test Set](#test)
+2. [Convolutional Neural Network](#cnn)
+    1. [First Attempt](#fa)
+        1. [Model Building/Compiling](#bc)
+        2. [Model Fitting](#fit)
+        3. [Evaluation](#eval)
+        4. [Error Analysis](#error)
+    2. [Final Attempt](#fa1)
+        1. [Model Building/Compiling](#bc1)
+        2. [Model Fitting](#fit1)
+        3. [Evaluation](#eval1)
+        4. [Error Analysis](#error1)
     
         
 
-## Pre-Processing <a name="Pre-Processing"></a>
+## Data Pre-Processing <a name="pp"></a>
 
-## Train
+### Train <a name="train"></a>
 
 Read in all 6 training files, and combine them into a single list. Use `catlength` to count the number of images in each of the 6 categories. 
 
@@ -140,7 +140,7 @@ remove(files, image_list)
 ```
 
 
-## Test
+### Test <a name="test"></a>
 
 Repeat the same procedures for the testing set. Code explanation same as above. 
 
@@ -233,11 +233,11 @@ remove(image_list_test)
 ```
 
 
-## CNN
+## Convolutional Neural Network <a name="cnn"></a>
 
-## First Attempt
+### First Attempt <a name="fa"></a>
 
-## Model Building/Compiling
+#### Model Building/Compiling <a name="bc"></a>
 
 Convolutional layers: start with 32 filters with a filter size to be 3 by 3. 
 
@@ -285,7 +285,7 @@ model %>%
 
 ```
 
-## Model Fitting
+#### Model Fitting <a name="fit"></a>
 
 blue line: based on training data; yellow line: validation data
 
@@ -301,7 +301,7 @@ beep()
 ```
 
 
-## Evaluation
+#### Evaluation <a name="eval"></a>
 
 ```{r}
 model %>% evaluate(testx, testy, verbose = 0)
@@ -325,7 +325,7 @@ plot(history) +
 ```
 
 
-## Error Analysis
+#### Error Analysis <a name="error"></a>
 
 Mislabelled images
 
@@ -368,11 +368,11 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 
 
-## Final Attempt
+### Final Attempt <a name="fa1"></a>
 
 After some trails and errors 
 
-## Model Building/Compiling
+#### Model Building/Compiling <a name="bc1"></a>
 
 ```{r}
 model = keras_model_sequential()
@@ -418,7 +418,7 @@ model %>%
 
 ```
 
-## Model Fitting
+#### Model Fitting <a name="fit1"></a>
 
 blue line: based on training data; yellow line: validation data
 
@@ -433,7 +433,7 @@ history <- model %>%
 ```
 
 
-## Evaluation
+#### Evaluation  <a name="eval1"></a>
 
 ```{r}
 model %>% evaluate(testx, testy, verbose = 0)
@@ -460,7 +460,7 @@ plot(history) +
 ```
 
 
-## Error Analysis <a name="erroranalysis"></a>
+#### Error Analysis <a name="error1"></a>
 
 ```{r}
 badclass_index = NULL

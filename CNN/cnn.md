@@ -13,26 +13,26 @@ output:
 
 
 # Table of Contents
-1. [Pre-Processing](##Pre-Processing)
-    1. [Train Set](##Train)
-    2. [Test Set](##Test)
-2. [CNN](##CNN)
-    1. [First Attempt](##FirstAttempt)
-        1. [Model Building/Compiling](##ModelBuilding/Compiling)
-        2. [Model Fitting](##ModelFitting)
-        3. [Evaluation](##Evaluation)
-        4. [Error Analysis](##ErrorAnalysis)
-    2. [First Attempt](##SecondAttempt)
-        1. [Model Building/Compiling](##ModelBuilding/Compiling)
-        2. [Model Fitting](##ModelFitting)
-        3. [Evaluation](##Evaluation)
-        4. [Error Analysis](#erroranalysis)
+1. [Data Pre-Processing](#pp)
+    1. [Train Set](#train)
+    2. [Test Set](#test)
+2. [Convolutional Neural Network](#cnn)
+    1. [First Attempt](#fa)
+        1. [Model Building/Compiling](#bc)
+        2. [Model Fitting](#fit)
+        3. [Evaluation](#eval)
+        4. [Error Analysis](#error)
+    2. [Final Attempt](#fa1)
+        1. [Model Building/Compiling](#bc1)
+        2. [Model Fitting](#fit1)
+        3. [Evaluation](#eval1)
+        4. [Error Analysis](#error1)
     
         
 
-## Pre-Processing <a name="Pre-Processing"></a>
+## Data Pre-Processing <a name="pp"></a>
 
-## Train
+### Train <a name="train"></a>
 
 Read in all 6 training files, and combine them into a single list. Use `catlength` to count the number of images in each of the 6 categories. 
 
@@ -169,7 +169,7 @@ remove(files, image_list)
 ```
 
 
-## Test
+### Test <a name="test"></a>
 
 Repeat the same procedures for the testing set. Code explanation same as above. 
 
@@ -302,11 +302,11 @@ remove(image_list_test)
 ```
 
 
-## CNN
+## Convolutional Neural Network <a name="cnn"></a>
 
-## First Attempt
+### First Attempt <a name="fa"></a>
 
-## Model Building/Compiling
+#### Model Building/Compiling <a name="bc"></a>
 
 Convolutional layers: start with 32 filters with a filter size to be 3 by 3. 
 
@@ -404,7 +404,7 @@ model %>%
           metrics = "accuracy")
 ```
 
-## Model Fitting
+#### Model Fitting <a name="fit"></a>
 
 blue line: based on training data; yellow line: validation data
 
@@ -421,7 +421,7 @@ beep()
 ```
 
 
-## Evaluation
+#### Evaluation <a name="eval"></a>
 
 
 ```r
@@ -430,10 +430,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.339636
+## [1] 1.319494
 ## 
 ## $accuracy
-## [1] 0.4837955
+## [1] 0.4864684
 ```
 
 building prediction:
@@ -448,12 +448,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0 262  90  77 122 135 215
-##         1  16 289   2   0  12  32
-##         2  55  15 375  95 167  58
-##         3  25   4  31 211  33  11
-##         4  26   1  58  84 132   6
-##         5  53  74   6  11  31 179
+##         0 113  22  28  41  54  70
+##         1  31 316   4  10  26  63
+##         2  37   2 242  46  85  29
+##         3  45   7  50 257  61  34
+##         4  63   9 202 142 243  20
+##         5 148 117  23  27  41 285
 ```
 
 
@@ -469,7 +469,7 @@ plot(history) +
 ![](cnn_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 
-## Error Analysis
+#### Error Analysis <a name="error"></a>
 
 Mislabelled images
 
@@ -517,11 +517,11 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 
 
-## Final Attempt
+### Final Attempt <a name="fa1"></a>
 
 After some trails and errors 
 
-## Model Building/Compiling
+#### Model Building/Compiling <a name="bc1"></a>
 
 
 ```r
@@ -631,7 +631,7 @@ model %>%
           metrics = "accuracy")
 ```
 
-## Model Fitting
+#### Model Fitting <a name="fit1"></a>
 
 blue line: based on training data; yellow line: validation data
 
@@ -647,7 +647,7 @@ history <- model %>%
 ```
 
 
-## Evaluation
+#### Evaluation  <a name="eval1"></a>
 
 
 ```r
@@ -656,10 +656,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.440034
+## [1] 1.731306
 ## 
 ## $accuracy
-## [1] 0.4263281
+## [1] 0.3150685
 ```
 
 building prediction:
@@ -674,12 +674,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0  24   3   9   7  18  35
-##         1 128 416  16  39  60 194
-##         2  15   1 207  40  85   9
-##         3  94   8  49 229  51  51
-##         4  75   5 245 173 225  37
-##         5 101  40  23  35  71 175
+##         0  39  25  14  25  13  25
+##         1   0   9   0   0   0   2
+##         2   0   1   0   0   1   1
+##         3   7   3  28 136  10   6
+##         4 211  58 478 307 419 127
+##         5 180 377  29  55  67 340
 ```
 
 Accuracy Plot
@@ -698,7 +698,7 @@ plot(history) +
 ![](cnn_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 
-## Error Analysis <a name="erroranalysis"></a>
+#### Error Analysis <a name="error1"></a>
 
 
 ```r
