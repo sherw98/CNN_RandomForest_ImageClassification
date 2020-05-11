@@ -1,0 +1,24 @@
+---
+title: "9-4 Notes"
+author: "Yixuan (Sherry) Wu"
+date: "September 4, 2019"
+output: 
+  rmarkdown::github_document:
+  toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1
+
+sdfd
+
+## 2
+
+sdfd
+
+### 3
+
+sdfd
