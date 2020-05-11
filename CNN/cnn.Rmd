@@ -24,10 +24,10 @@ library(tidyverse)
 ```
 
 # Table of Contents
-1. [Data Pre-Processing](#Data Pre-Processing)
+1. [Pre-Processing](##Pre-Processing)
     1. [Train Set](##Train)
 
-# Data Pre-Processing 
+## Pre-Processing 
 
 ## Train
 
