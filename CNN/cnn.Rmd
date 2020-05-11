@@ -26,6 +26,20 @@ library(tidyverse)
 # Table of Contents
 1. [Pre-Processing](##Pre-Processing)
     1. [Train Set](##Train)
+    2. [Test Set](##Test)
+2. [CNN](##CNN)
+    1. [First Attempt](##First Attempt)
+        1. [Model Building/Compiling](##Model Building/Compiling)
+        2. [Model Fitting](##Model Fitting)
+        3. [Evaluation](##Evaluation)
+        4. [Error Analysis](##Error Analysis)
+    2. [First Attempt](##First Attempt)
+        1. [Model Building/Compiling](##Model Building/Compiling)
+        2. [Model Fitting](##Model Fitting)
+        3. [Evaluation](##Evaluation)
+        4. [Error Analysis](##Error Analysis)
+    
+        
 
 ## Pre-Processing 
 
@@ -126,7 +140,7 @@ remove(files, image_list)
 ```
 
 
-## Testing
+## Test
 
 Repeat the same procedures for the testing set. Code explanation same as above. 
 
@@ -218,13 +232,12 @@ str(testall)
 remove(image_list_test)
 ```
 
-##################################CNN#############################
 
-# CNN
+## CNN
 
 ## First Attempt
 
-### Model Fitting/Compiling
+## Model Building/Compiling
 
 Convolutional layers: start with 32 filters with a filter size to be 3 by 3. 
 
@@ -262,7 +275,7 @@ model %>%
 summary(model)
 ```
 
-### Compiling
+Compile
 
 ```{r}
 model %>%
@@ -272,7 +285,7 @@ model %>%
 
 ```
 
-### Model Fitting
+## Model Fitting
 
 blue line: based on training data; yellow line: validation data
 
@@ -288,7 +301,7 @@ beep()
 ```
 
 
-### Evaluation
+## Evaluation
 
 ```{r}
 model %>% evaluate(testx, testy, verbose = 0)
@@ -312,7 +325,7 @@ plot(history) +
 ```
 
 
-### Error Analysis
+## Error Analysis
 
 Mislabelled images
 
@@ -359,7 +372,7 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 After some trails and errors 
 
-### Model Fitting/Compiling
+## Model Building/Compiling
 
 ```{r}
 model = keras_model_sequential()
@@ -395,7 +408,7 @@ model %>%
 summary(model)
 ```
 
-### Compiling
+
 
 ```{r}
 model %>%
@@ -405,7 +418,7 @@ model %>%
 
 ```
 
-### Model Fitting
+## Model Fitting
 
 blue line: based on training data; yellow line: validation data
 
@@ -420,7 +433,7 @@ history <- model %>%
 ```
 
 
-### Evaluation
+## Evaluation
 
 ```{r}
 model %>% evaluate(testx, testy, verbose = 0)
@@ -447,7 +460,7 @@ plot(history) +
 ```
 
 
-### Error Analysis
+## Error Analysis
 
 ```{r}
 badclass_index = NULL

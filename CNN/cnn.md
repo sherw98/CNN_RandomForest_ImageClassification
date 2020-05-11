@@ -15,6 +15,20 @@ output:
 # Table of Contents
 1. [Pre-Processing](##Pre-Processing)
     1. [Train Set](##Train)
+    2. [Test Set](##Test)
+2. [CNN](##CNN)
+    1. [First Attempt](##First Attempt)
+        1. [Model Building/Compiling](##Model Building/Compiling)
+        2. [Model Fitting](##Model Fitting)
+        3. [Evaluation](##Evaluation)
+        4. [Error Analysis](##Error Analysis)
+    2. [First Attempt](##First Attempt)
+        1. [Model Building/Compiling](##Model Building/Compiling)
+        2. [Model Fitting](##Model Fitting)
+        3. [Evaluation](##Evaluation)
+        4. [Error Analysis](##Error Analysis)
+    
+        
 
 ## Pre-Processing 
 
@@ -155,7 +169,7 @@ remove(files, image_list)
 ```
 
 
-## Testing
+## Test
 
 Repeat the same procedures for the testing set. Code explanation same as above. 
 
@@ -287,13 +301,12 @@ str(testall)
 remove(image_list_test)
 ```
 
-##################################CNN#############################
 
-# CNN
+## CNN
 
 ## First Attempt
 
-### Model Fitting/Compiling
+## Model Building/Compiling
 
 Convolutional layers: start with 32 filters with a filter size to be 3 by 3. 
 
@@ -381,7 +394,7 @@ summary(model)
 ## ___________________________________________________________________________
 ```
 
-### Compiling
+Compile
 
 
 ```r
@@ -391,7 +404,7 @@ model %>%
           metrics = "accuracy")
 ```
 
-### Model Fitting
+## Model Fitting
 
 blue line: based on training data; yellow line: validation data
 
@@ -408,7 +421,7 @@ beep()
 ```
 
 
-### Evaluation
+## Evaluation
 
 
 ```r
@@ -417,10 +430,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.384276
+## [1] 1.320539
 ## 
 ## $accuracy
-## [1] 0.4410291
+## [1] 0.4700969
 ```
 
 building prediction:
@@ -435,12 +448,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0 123  36  26  55  37  86
-##         1  46 348   5   2  15  82
-##         2  26  12 150  35  57  61
-##         3  48  11  49 191  38  50
-##         4 135  13 310 236 346  60
-##         5  59  53   9   4  17 162
+##         0 193  28  58 119  93 126
+##         1  73 408  11  12  20 155
+##         2  28   6 211  42  79  30
+##         3   6   2  27 159  12   5
+##         4  78   9 231 183 282  31
+##         5  59  20  11   8  24 154
 ```
 
 
@@ -456,7 +469,7 @@ plot(history) +
 ![](cnn_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
 
 
-### Error Analysis
+## Error Analysis
 
 Mislabelled images
 
@@ -508,7 +521,7 @@ ggplot(tabheat, aes(x = Predicted, y = Actual, fill = Freq)) +
 
 After some trails and errors 
 
-### Model Fitting/Compiling
+## Model Building/Compiling
 
 
 ```r
@@ -608,7 +621,7 @@ summary(model)
 ## ___________________________________________________________________________
 ```
 
-### Compiling
+
 
 
 ```r
@@ -618,7 +631,7 @@ model %>%
           metrics = "accuracy")
 ```
 
-### Model Fitting
+## Model Fitting
 
 blue line: based on training data; yellow line: validation data
 
@@ -634,7 +647,7 @@ history <- model %>%
 ```
 
 
-### Evaluation
+## Evaluation
 
 
 ```r
@@ -643,10 +656,10 @@ model %>% evaluate(testx, testy, verbose = 0)
 
 ```
 ## $loss
-## [1] 1.552242
+## [1] 1.749768
 ## 
 ## $accuracy
-## [1] 0.3481457
+## [1] 0.3585032
 ```
 
 building prediction:
@@ -661,12 +674,12 @@ tb_att1
 ```
 ##          Actual
 ## Predicted   0   1   2   3   4   5
-##         0  34  15   4   8   8  49
-##         1  47 358   5  13  30  76
-##         2   9  15  25  10  13  69
-##         3  62  22  25 177  34  84
-##         4 271  51 490 314 424 199
-##         5  14  12   0   1   1  24
+##         0   1   0   0   0   0   0
+##         1   2  67   0   0   1   3
+##         2  66  65 163  50  86  99
+##         3  33  26  42 227  51  27
+##         4  97   8 248 153 272  29
+##         5 238 307  96  93 100 343
 ```
 
 Accuracy Plot
@@ -685,7 +698,7 @@ plot(history) +
 ![](cnn_files/figure-html/unnamed-chunk-26-1.png)<!-- -->
 
 
-### Error Analysis
+## Error Analysis
 
 
 ```r
